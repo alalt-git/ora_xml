@@ -1,1 +1,6 @@
 wait
+          --<![CDATA[some]]>
+          --xxCD  := dbms_xmldom.createCDataSection(xdoc, cDATA); 
+          --xxCD       := DBMS_XMLDOM.CREATETEXTNODE(xdoc, (cDATA)); 
+          --xNodeData0 := DBMS_XMLDOM.APPENDCHILD (xNodeData0,DBMS_XMLDOM.MAKENODE (xxCD));
+          --<<
