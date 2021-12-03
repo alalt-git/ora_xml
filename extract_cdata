@@ -1,1 +1,24 @@
-wait
+           (--select for doc/Data/*
+            SELECT doc_dat.EMPLOYEEID,
+                   -->>>>>>>>>>>>>>>
+                   base64decode_to_clob(doc_dat.mcrdData) as mcrdData
+/*                 cDATA
+                     dbms_xmlgen.convert(
+                       XMLQuery('data($p)'
+                         passing by value XMLParse(content ''||doc_dat.mcrdData)
+                         as "p"
+                         returning content
+                       ).getCLOBVal(),
+                       1
+                     )
+*/
+                    --<<<<<<<<<<<<<<<
+
+            FROM XMLTABLE ('*/*:Data'
+              PASSING XMLTYPE(in_cxml)
+              COLUMNS
+                 EMPLOYEEID               varchar2(100)    path '*:EMPLOYEEID',
+                 mcrdData                 clob             path '*:CARDDATA'
+                 --mcrdData                 xmltype          path '*:CARDDATA'
+                 ) doc_dat
+            ) dd
